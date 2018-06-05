@@ -39,6 +39,7 @@ namespace SoundBoard
                 new MenuItem {IconFile = "Assets/Icons/taunt.png", SoundCategory = SoundCategory.Taunts},
                 new MenuItem {IconFile = "Assets/Icons/warning.png", SoundCategory = SoundCategory.Warnings}
             };
+            BackButton.Visibility = Visibility.Collapsed;
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -48,7 +49,10 @@ namespace SoundBoard
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SoundManager.GetAllSounds(sounds);
+            CategoryTextBlock.Text = "All Sounds";
+            MenuItemsListView.SelectedItem = null;
+            BackButton.Visibility = Visibility.Collapsed;
         }
 
         private void SearchAutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -66,6 +70,7 @@ namespace SoundBoard
             var menuItem = (MenuItem) e.ClickedItem;
             CategoryTextBlock.Text = menuItem.SoundCategory.ToString();
             SoundManager.GetSoundByCategory(sounds, menuItem.SoundCategory);
+            BackButton.Visibility = Visibility.Visible;
         }
 
         private void SoundGridView_ItemClick(object sender, ItemClickEventArgs e)
