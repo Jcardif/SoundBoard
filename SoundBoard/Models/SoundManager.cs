@@ -20,6 +20,17 @@ namespace SoundBoard.Models
             }
         }
 
+        public static void GetSoundByName(ObservableCollection<Sound> sound,string name)
+        {
+            var allSounds = GetSounds();
+            var filteredSounds = allSounds.Where(p => p.Name.Equals(name)).ToList();
+            sound.Clear();
+            foreach (var sound_ in filteredSounds)
+            {
+                sound.Add(sound_);
+            }
+        }
+
         public static void GetSoundByCategory(ObservableCollection<Sound> sounds, SoundCategory category)
         {
             var allSounds = GetSounds();

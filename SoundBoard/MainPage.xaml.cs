@@ -28,12 +28,14 @@ namespace SoundBoard
     public sealed partial class MainPage : Page
     {
         private ObservableCollection<Sound> sounds;
+        private List<string> suggestions;
         private List<MenuItem> menuItems;
         public MainPage()
         {
             this.InitializeComponent();
             sounds=new ObservableCollection<Sound>();
             SoundManager.GetAllSounds(sounds);
+            suggestions=new List<string>();
 
             menuItems = new List<MenuItem>()
             {
@@ -60,12 +62,18 @@ namespace SoundBoard
 
         private void SearchAutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-
+            SoundManager.GetAllSounds(sounds);
+            suggestions = sounds.Where(p => p.Name.StartsWith(sender.Text)).Select(p => p.Name).ToList();
+            SearchAutoSuggestBox.ItemsSource = suggestions;
         }
 
         private void SearchAutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-
+            SoundManager.GetSoundByName(sounds, sender.Text);
+            CategoryTextBlock.Text = sender.Text;
+            MenuItemsListView.SelectedItem = null;
+            SearchAutoSuggestBox = null;
+            BackButton.Visibility = Visibility.Visible;
         }
 
         private void MenuItemsListView_ItemClick(object sender, ItemClickEventArgs e)
