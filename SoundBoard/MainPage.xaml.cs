@@ -4,8 +4,11 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -77,6 +80,41 @@ namespace SoundBoard
         {
             var sound = (Sound) e.ClickedItem;
             SoundMediaElement.Source=new Uri(this.BaseUri, sound.AudoFile);
+        }
+
+        private async void SoundGridView_OnDrop(object sender, DragEventArgs e)
+        {
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                var items = await e.DataView.GetStorageItemsAsync();
+                if (items.Any())
+                {
+                    var storageFile = items[0] as StorageFile;
+                    var contentType = storageFile.ContentType;
+
+                    StorageFolder folder = ApplicationData.Current.LocalFolder;
+                    if (contentType == "audio/wav" || contentType == "audio/,mpeg")
+                    {
+                        SoundMediaElement.SetSource(await storageFile.OpenAsync(FileAccessMode.Read), contentType);
+                        SoundMediaElement.Play();
+                    }
+                }
+            }
+        }
+
+        private void SoundGridView_OnDragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = DataPackageOperation.Copy;
+
+            if (e.DragUIOverride != null)
+            {
+                e.DragUIOverride.Caption = "drop to create a custom sound and tile";
+                e.DragUIOverride.IsCaptionVisible = true;
+                e.DragUIOverride.IsContentVisible = true;
+                e.DragUIOverride.IsGlyphVisible = true;
+            }
+
+            ;
         }
     }
 }

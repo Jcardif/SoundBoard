@@ -81,6 +81,9 @@
                                FontSize="24"/>
                     <GridView Grid.Row="1"
                               Name="SoundGridView"
+                              AllowDrop="True"
+                              Drop="SoundGridView_OnDrop"
+                              DragOver="SoundGridView_OnDragOver"
                               SelectionMode="None"
                               IsItemClickEnabled="True"
                               ItemsSource="{x:Bind sounds}"
