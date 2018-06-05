@@ -25,17 +25,25 @@ namespace SoundBoard
     public sealed partial class MainPage : Page
     {
         private ObservableCollection<Sound> sounds;
-
+        private List<MenuItem> menuItems;
         public MainPage()
         {
             this.InitializeComponent();
             sounds=new ObservableCollection<Sound>();
             SoundManager.GetAllSounds(sounds);
+
+            menuItems = new List<MenuItem>()
+            {
+                new MenuItem {IconFile = "Assets/Icons/animals.png", SoundCategory = SoundCategory.Animals},
+                new MenuItem {IconFile = "Assets/Icons/cartoon.png", SoundCategory = SoundCategory.Cartoons},
+                new MenuItem {IconFile = "Assets/Icons/taunt.png", SoundCategory = SoundCategory.Taunts},
+                new MenuItem {IconFile = "Assets/Icons/warning.png", SoundCategory = SoundCategory.Warnings}
+            };
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
