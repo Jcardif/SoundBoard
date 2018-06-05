@@ -46,8 +46,22 @@
             <SplitView.Pane>
                 <ListView IsItemClickEnabled="True"
                           Name="MenuItemsListView"
+                          ItemsSource="{x:Bind menuItems}"
                           ItemClick="MenuItemsListView_ItemClick">
-
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:MenuItem">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{x:Bind IconFile}"
+                                       Height="45"
+                                       VerticalAlignment="Center"
+                                       Width="45"/>
+                                <TextBlock Text="{x:Bind SoundCategory}"
+                                           FontSize="18"
+                                           VerticalAlignment="Center"
+                                           Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>

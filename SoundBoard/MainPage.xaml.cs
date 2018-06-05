@@ -68,7 +68,8 @@ namespace SoundBoard
 
         private void SoundGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            var sound = (Sound) e.ClickedItem;
+            SoundMediaElement.Source=new Uri(this.BaseUri, sound.AudoFile);
         }
     }
 }
