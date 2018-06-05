@@ -17,8 +17,8 @@ namespace SoundBoard.Models
         {
             Name = name;
             Category = category;
-            AudoFile = string.Format($"/Assets/Audio/{category}/{name}.wav");
-            ImageFile = string.Format($"/Assets/Audio/{category}/{name}.png");
+            AudoFile = $"Assets/Audio/{category}/{name}.wav";
+            ImageFile =$"Assets/Images/{category}/{name}.png";
         }
     }
 
