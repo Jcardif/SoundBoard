@@ -12,6 +12,14 @@ namespace SoundBoard.Models
         public SoundCategory Category { get; set; }
         public string AudoFile { get; set; }
         public String ImageFile { get; set; }
+
+        public Sound(string name, SoundCategory category)
+        {
+            Name = name;
+            Category = category;
+            AudoFile = string.Format($"/Assets/Audio/{category}/{name}.wav");
+            ImageFile = string.Format($"/Assets/Audio/{category}/{name}.png");
+        }
     }
 
     public enum SoundCategory
