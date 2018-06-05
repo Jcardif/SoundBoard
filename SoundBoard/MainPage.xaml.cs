@@ -63,7 +63,9 @@ namespace SoundBoard
 
         private void MenuItemsListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-
+            var menuItem = (MenuItem) e.ClickedItem;
+            CategoryTextBlock.Text = menuItem.SoundCategory.ToString();
+            SoundManager.GetSoundByCategory(sounds, menuItem.SoundCategory);
         }
 
         private void SoundGridView_ItemClick(object sender, ItemClickEventArgs e)

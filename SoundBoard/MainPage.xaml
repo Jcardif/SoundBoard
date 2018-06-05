@@ -52,9 +52,10 @@
                         <DataTemplate x:DataType="data:MenuItem">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{x:Bind IconFile}"
-                                       Height="45"
+                                       Height="35"
+                                       Margin="-10,10,0,10"
                                        VerticalAlignment="Center"
-                                       Width="45"/>
+                                       Width="35"/>
                                 <TextBlock Text="{x:Bind SoundCategory}"
                                            FontSize="18"
                                            VerticalAlignment="Center"
@@ -65,7 +66,7 @@
                 </ListView>
             </SplitView.Pane>
             <SplitView.Content>
-                <Grid>
+                <Grid Margin="20,20,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
